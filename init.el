@@ -4,7 +4,7 @@
 
 ;; Author: Yogesh Kamat <yogeshkamat181@gmail.com>
 ;; Keywords: Convenience
-;; URL:
+;; URL: https://github.com/yogeshkamat181/emacs.d
 
 ;; This file is not part of GNU Emacs.
 
