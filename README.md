@@ -1,0 +1,1 @@
+You can read my GNU Emacs configuration by opening [init.el](init.el).
