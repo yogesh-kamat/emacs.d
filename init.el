@@ -54,11 +54,6 @@ There are two things you can do about this warning:
 
 (package-initialize)
 
-;; save customizations in a separate file
-(setq custom-file "~/.emacs.d/emacs-custom.el")
-(when (file-exists-p custom-file)
-  (load custom-file))
-
 ;; use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -71,5 +66,142 @@ There are two things you can do about this warning:
 (use-package color-theme-sanityinc-tomorrow
   :config
   (load-theme 'sanityinc-tomorrow-eighties t))
+
+;; don't show
+(setq inhibit-startup-screen t)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; modeline
+(column-number-mode 1)
+(size-indication-mode 1)
+(display-time-mode 1)
+(use-package delight)
+(use-package eldoc
+  :delight)
+
+;; relative live numbers
+(setq-default display-line-numbers 'relative)
+
+;; highlight current line
+(global-hl-line-mode 1)
+
+;; disable bell ring
+(setq ring-bell-function 'ignore)
+
+;; enable delete selection mode
+(delete-selection-mode 1)
+
+;; show matching parens
+(show-paren-mode 1)
+
+;; indentation can not insert tabs
+(setq-default indent-tabs-mode nil)
+
+;; automatic line-wrapping
+(setq-default fill-column 80)
+
+;; remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; shorter y/n answers
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; replace buffer-menu with ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; save customizations in a separate file
+(setq custom-file "~/.emacs.d/emacs-custom.el")
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+;; store backup and auto-save files to the systems temp directory
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;;; Packages:
+
+(use-package undo-tree
+  :delight
+  :config
+  (global-undo-tree-mode))
+
+(use-package try)
+
+(use-package which-key
+  :delight
+  :config
+  (which-key-mode))
+
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
+(use-package multiple-cursors
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
+
+(use-package avy
+  :bind (("C-:" . avy-goto-char-timer)
+         ("C-c C-:" . avy-goto-line)))
+
+(use-package ace-window
+  :delight
+  :bind ("M-o" . ace-window))
+
+(use-package ivy
+  :delight
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) "))
+
+(use-package swiper
+  :bind ("C-s" . swiper-isearch))
+
+(use-package counsel
+  :delight
+  :config
+  (counsel-mode 1))
+
+(use-package neotree
+  :bind ([f8] . neotree-toggle)
+  :config
+  (setq neo-theme 'ascii))
+
+(use-package magit
+  :bind ("C-x g" . magit-status))
+
+(use-package yasnippet
+  :delight yas-minor-mode
+  :config
+  (yas-global-mode 1))
+
+(use-package yasnippet-snippets)
+
+(use-package projectile
+  :delight '(:eval (concat " Proj[" (projectile-project-name) "]"))
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
+
+(use-package counsel-projectile
+  :config
+  (counsel-projectile-mode 1))
+
+(use-package flycheck
+  :config
+  (global-flycheck-mode 1))
+
+(use-package company
+  :delight
+  :hook (after-init . global-company-mode))
+
+(use-package company-quickhelp
+  :after company
+  :bind (:map company-active-map
+              ("C-c h" . company-quickhelp-manual-begin)))
 
 ;;; init.el ends here
