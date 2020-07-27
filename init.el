@@ -2,9 +2,9 @@
 
 ;; Copyright (C) 2020 Yogesh Kamat
 
-;; Author: Yogesh Kamat <yogeshkamat181@gmail.com>
+;; Author: Yogesh Kamat
 ;; Keywords: Convenience
-;; URL: https://github.com/yogeshkamat181/emacs.d
+;; URL: https://github.com/yogeshk4/emacs.d
 
 ;; This file is not part of GNU Emacs.
 
